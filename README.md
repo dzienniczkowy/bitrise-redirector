@@ -11,7 +11,7 @@ Extends the [Bitrise REST API](http://devcenter.bitrise.io/api/v0.1/) with deter
 
 A public instance of bitrise-redirector is running here:
 
- * [https://bitrise-redirector.herokuapp.com/](bitrise-redirector.herokuapp.com/)
+ * https://bitrise-redirector.herokuapp.com
 
 ## URL Patterns
 
