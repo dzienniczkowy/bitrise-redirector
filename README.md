@@ -1,7 +1,5 @@
 # Bitrise Redirector
 
-Extends the Bitrise REST API with bookmarkable URLs for latest build and build artifacts
-
 Extends the [Bitrise REST API](http://devcenter.bitrise.io/api/v0.1/) with deterministic/bookmarkable URLs for:
 
  * latest build on a specific branch
@@ -25,7 +23,7 @@ Get json list of build artifacts for the latest build on a specific branch ([exa
 
  * `GET /api/v0.1/apps/{slug}/{branch}/builds/latest/artifacts`
 
-Get redirected to the download link of a specific build artifact ([example](https://bitrise-redirector.herokuapp.com/api/v0.1/apps/daeff1893f3c8128/master/builds/latest/artifacts/app-debug.apk):
+Get redirected to the download link of a specific build artifact ([example](https://bitrise-redirector.herokuapp.com/api/v0.1/apps/daeff1893f3c8128/master/builds/latest/artifacts/app-debug.apk)):
 
  * `GET /api/v0.1/apps/{slug}/{branch}/builds/latest/artifacts/{artifact}`
 
@@ -37,3 +35,13 @@ Install composer dependencies:
 ```bash
 $ composer install
 ```
+
+Start server with API_KEY and DEBUG variable:
+
+```bash
+$ DEBUG=true API_KEY={key} php -S localhost:8080 -t public public/index.php
+```
+
+Open the webapp in browser:
+
+http://localhost:8080
