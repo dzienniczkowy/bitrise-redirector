@@ -3,7 +3,8 @@
     "description": "Extends the Bitrise REST API with bookmarkable URLs for latest build and build artifacts",
     "type": "project",
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "silex/silex": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.3"
@@ -14,5 +15,10 @@
             "name": "Mikołaj Pich",
             "email": "m.pich@outlook.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Wulkanowy\\BitriseRedirector\\": "src/"
+        }
+    }
 }
