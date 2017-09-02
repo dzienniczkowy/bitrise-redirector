@@ -9,7 +9,7 @@
     },
     "DEBUG": {
       "description": "Is debug enabled (true/false",
-      "value": "false"
+      "value": "false",
       "required": "false"
     }
   }
