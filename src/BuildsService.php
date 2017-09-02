@@ -8,6 +8,11 @@ use GuzzleHttp\Exception\ClientException;
 class BuildsService
 {
     /**
+     * @var string Desired type of build
+     */
+    private $status = 'success';
+
+    /**
      * @param Client $client
      * @param string $branch
      * @param string $slug
@@ -28,11 +33,12 @@ class BuildsService
         $response = json_decode($response->getBody()->getContents());
 
         foreach ($response->data as $key => $value) {
-            if ($branch === $value->branch) {
+            if ($branch === $value->branch && $this->status === $value->status_text) {
                 return $value->slug;
             }
         }
 
-        throw new RequestFailedException('Branch not exist in last 50 builds.');
+        throw new RequestFailedException('Build on branch '.$branch.
+            ' and status '.$this->status.' not exist in last 50 builds.');
     }
 }
