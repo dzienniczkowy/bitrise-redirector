@@ -28,7 +28,7 @@ $app['artifacts'] = function () {
     return new ArtifactsService();
 };
 
-$app->get('/', function() use ($app) {
+$app->get('/', function () use ($app) {
     return $app->redirect('https://github.com/wulkanowy/bitrise-redirector#bitrise-redirector');
 });
 
