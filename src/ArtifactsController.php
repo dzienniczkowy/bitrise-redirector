@@ -11,12 +11,13 @@ class ArtifactsController
 {
     /**
      * @param Application $app
-     * @param string $slug
-     * @param string $branch
+     * @param string      $slug
+     * @param string      $branch
      *
-     * @return JsonResponse
      * @throws RequestFailedException
      * @throws \RuntimeException
+     *
+     * @return JsonResponse
      */
     public function listAction(Application $app, string $slug, string $branch) : JsonResponse
     {
@@ -29,13 +30,14 @@ class ArtifactsController
 
     /**
      * @param Application $app
-     * @param string $slug
-     * @param string $branch
-     * @param string $artifact
+     * @param string      $slug
+     * @param string      $branch
+     * @param string      $artifact
      *
-     * @return RedirectResponse
      * @throws \RuntimeException
      * @throws RequestFailedException
+     *
+     * @return RedirectResponse
      */
     public function artifactAction(Application $app, string $slug, string $branch, string $artifact) : RedirectResponse
     {

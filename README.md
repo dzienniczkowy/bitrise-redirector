@@ -1,5 +1,7 @@
 # Bitrise Redirector
 
+[![StyleCI](https://styleci.io/repos/102099433/shield?branch=master)](https://styleci.io/repos/102099433)
+
 Extends the [Bitrise REST API](http://devcenter.bitrise.io/api/v0.1/) with deterministic/bookmarkable URLs for:
 
  * latest build on a specific branch

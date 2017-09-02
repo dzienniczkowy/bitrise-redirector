@@ -2,7 +2,6 @@
 
 use Silex\ControllerCollection;
 use SilexGuzzle\GuzzleServiceProvider;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wulkanowy\BitriseRedirector\ArtifactsService;
 use Wulkanowy\BitriseRedirector\BuildsService;
@@ -14,10 +13,10 @@ $app = new Silex\Application();
 $app['debug'] = getenv('DEBUG');
 
 $app->register(new GuzzleServiceProvider(), [
-    'guzzle.base_uri' => 'https://api.bitrise.io/v0.1/',
+    'guzzle.base_uri'        => 'https://api.bitrise.io/v0.1/',
     'guzzle.request_options' => [
         'headers' => [
-            'Authorization' => 'token '.getenv('API_KEY')
+            'Authorization' => 'token '.getenv('API_KEY'),
         ],
     ],
 ]);
@@ -30,7 +29,7 @@ $app['artifacts'] = function () {
 };
 
 /**
- * @var $builds ControllerCollection
+ * @var ControllerCollection
  */
 $builds = $app['controllers_factory'];
 

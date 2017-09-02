@@ -12,9 +12,10 @@ class BuildsService
      * @param string $branch
      * @param string $slug
      *
-     * @return string
      * @throws \RuntimeException
      * @throws RequestFailedException
+     *
+     * @return string
      */
     public function getLastBuildSlugByBranch(Client $client, string $branch, string $slug) : string
     {

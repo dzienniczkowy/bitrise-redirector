@@ -9,8 +9,8 @@ class BuildsController
 {
     /**
      * @param Application $app
-     * @param string $slug
-     * @param string $branch
+     * @param string      $slug
+     * @param string      $branch
      *
      * @return RedirectResponse
      */

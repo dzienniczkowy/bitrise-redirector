@@ -11,8 +11,9 @@ class ArtifactsService
      * @param string $appSlug
      * @param string $buildSLug
      *
-     * @return array
      * @throws \RuntimeException
+     *
+     * @return array
      */
     public function getArtifactsListByBranch(Client $client, string $appSlug, string $buildSLug) : array
     {
