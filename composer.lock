@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2546e1a7740e13d1b36bc1e1e73bfce4",
+    "content-hash": "c1a58a46938e9ee75e2fdefa882f2b14",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -382,6 +382,55 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "rebangm/silex-guzzlehttp-provider",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rebangm/silex-guzzlehttp-provider.git",
+                "reference": "f4194ba3c575b26bff6c319d13a6474dfbe609b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rebangm/silex-guzzlehttp-provider/zipball/f4194ba3c575b26bff6c319d13a6474dfbe609b6",
+                "reference": "f4194ba3c575b26bff6c319d13a6474dfbe609b6",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "silex/silex": "~2.0",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SilexGuzzle\\": "src\\SilexGuzzle"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-Philippe Dépigny",
+                    "email": "jp.depigny@gmail.com",
+                    "homepage": "https://github.com/rebangm"
+                }
+            ],
+            "description": "Guzzle http service provider for Silex",
+            "homepage": "https://github.com/rebangm/silex-Guzzlehttp-provider",
+            "keywords": [
+                "guzzlehttp",
+                "provider",
+                "silex"
+            ],
+            "time": "2016-10-28T15:46:54+00:00"
         },
         {
             "name": "silex/silex",

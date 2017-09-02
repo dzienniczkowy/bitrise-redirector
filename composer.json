@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "silex/silex": "~2.0"
+        "silex/silex": "~2.0",
+        "rebangm/silex-guzzlehttp-provider": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.3"
