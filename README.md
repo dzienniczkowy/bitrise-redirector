@@ -7,6 +7,8 @@ Extends the [Bitrise REST API](http://devcenter.bitrise.io/api/v0.1/) with deter
  * latest build on a specific branch
  * build artifact download links
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/wulkanowy/bitrise-redirector)
+
 ## Public instance
 
 A public instance of bitrise-redirector is running here:

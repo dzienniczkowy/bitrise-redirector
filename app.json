@@ -1,0 +1,16 @@
+{
+  "name": "Bitrise Redirector",
+  "description": "Extends the Bitrise REST API with bookmarkable URLs for latest build and build artifacts",
+  "repository": "https://github.com/wulkanowy/bitrise-redirector",
+  "keywords": ["bitrise", "api", "php"],
+  "env": {
+    "API_KEY": {
+      "description": "Bitrise API token https://www.bitrise.io/me/profile#/security"
+    },
+    "DEBUG": {
+      "description": "Is debug enabled (true/false",
+      "value": "false"
+      "required": "false"
+    }
+  }
+}
