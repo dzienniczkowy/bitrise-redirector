@@ -1,5 +1,7 @@
 # Bitrise Redirector
 
+[![Latest Stable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/version?format=flat-square)](https://packagist.org/packages/phpunit/phpunit)
+[![Dependency Status](https://www.versioneye.com/user/projects/59aaf1f10fb24f004e2b8610/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59aaf1f10fb24f004e2b8610)
 [![StyleCI](https://styleci.io/repos/102099433/shield?branch=master)](https://styleci.io/repos/102099433)
 
 Extends the [Bitrise REST API](http://devcenter.bitrise.io/api/v0.1/) with deterministic/bookmarkable URLs for:
