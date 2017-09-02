@@ -36,10 +36,10 @@ Get redirected to the download link of a specific build artifact ([example](http
 
 ## Development
 
-Install composer dependencies:
+Installation:
 
 ```bash
-$ composer install
+$ composer create-project wulkanowy/bitrise-redirector
 ```
 
 Start server with API_KEY and DEBUG variable:
