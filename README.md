@@ -1,6 +1,7 @@
 # Bitrise Redirector
 
 [![Latest Stable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/version?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
+[![Latest Unstable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/v/unstable?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
 [![Dependency Status](https://www.versioneye.com/user/projects/59aaf1f10fb24f004e2b8610/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59aaf1f10fb24f004e2b8610)
 [![StyleCI](https://styleci.io/repos/102099433/shield?branch=master)](https://styleci.io/repos/102099433)
 
@@ -21,17 +22,17 @@ A public instance of bitrise-redirector is running here:
 
 ### API v0.1
 
-Get redirected to the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/api/v0.1/apps/daeff1893f3c8128/master/builds/latest)):
+Get redirected to the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master)):
 
- * `GET /api/v0.1/apps/{slug}/{branch}/builds/latest`
+ * `GET /v0.1/apps/{slug}/builds/{branch}`
 
-Get json list of build artifacts for the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/api/v0.1/apps/daeff1893f3c8128/master/builds/latest/artifacts)):
+Get json list of build artifacts for the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts)):
 
- * `GET /api/v0.1/apps/{slug}/{branch}/builds/latest/artifacts`
+ * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts`
 
-Get redirected to the download link of a specific build artifact ([example](https://bitrise-redirector.herokuapp.com/api/v0.1/apps/daeff1893f3c8128/master/builds/latest/artifacts/app-debug.apk)):
+Get redirected to the download link of a specific build artifact ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/app-debug.apk)):
 
- * `GET /api/v0.1/apps/{slug}/{branch}/builds/latest/artifacts/{artifact}`
+ * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}`
 
 
 ## Development

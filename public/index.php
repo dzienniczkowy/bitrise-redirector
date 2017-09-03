@@ -45,15 +45,15 @@ HTML
 $builds = $app['controllers_factory'];
 
 // Redirect to the latest build on a specific branch
-$builds->get('/latest', 'Wulkanowy\\BitriseRedirector\\BuildsController::latestAction');
+$builds->get('/{branch}', 'Wulkanowy\\BitriseRedirector\\BuildsController::latestAction');
 
 // Get latest build artifacts on a specific branch
-$builds->get('/latest/artifacts', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::listAction');
+$builds->get('/{branch}/artifacts', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::listAction');
 
 // Redirect to specific latest build artifact on a specific branch
-$builds->get('/latest/artifacts/{artifact}', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::artifactAction');
+$builds->get('/{branch}/artifacts/{artifact}', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::artifactAction');
 
-$app->mount('/api/v0.1/apps/{slug}/{branch}/builds', $builds);
+$app->mount('/v0.1/apps/{slug}/builds', $builds);
 
 $app->error(function (RequestFailedException $e) {
     return new Response($e->getMessage(), 404);
