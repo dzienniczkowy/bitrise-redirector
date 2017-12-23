@@ -3,6 +3,7 @@
 namespace Wulkanowy\BitriseRedirector;
 
 use GuzzleHttp\Client;
+use IvoPetkov\HTML5DOMDocument;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,7 +15,6 @@ class ArtifactsController
      * @param string      $slug
      * @param string      $branch
      *
-     * @throws RequestFailedException
      * @throws \RuntimeException
      *
      * @return JsonResponse
@@ -41,6 +41,48 @@ class ArtifactsController
      */
     public function artifactAction(Application $app, string $slug, string $branch, string $artifact) : RedirectResponse
     {
+        $res = json_decode($this->getArtifactJson($app, $slug, $branch, $artifact))['data'];
+
+        return $app->redirect($res['public_install_page_url'] ?: $res['expiring_download_url']);
+    }
+
+    /**
+     * @param Application $app
+     * @param string      $slug
+     * @param string      $branch
+     * @param string      $artifact
+     *
+     * @return JsonResponse
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws RequestFailedException
+     */
+    public function artifactInfoAction(Application $app, string $slug, string $branch, string $artifact) : JsonResponse {
+
+        $info = json_decode($this->getArtifactJson($app, $slug, $branch, $artifact), true)['data'];
+
+        /** @var Client $downloadPage */
+        $dom = new HTML5DOMDocument();
+        $dom->loadHTML($app['guzzle']->get($info['public_install_page_url'])->getBody()->getContents());
+
+        return $app->json([
+            'latestVersion'     =>$dom->querySelectorAll('h1')[2]->innerHTML,
+            'latestVersionCode' => $dom->querySelectorAll('.size')[2]->innerHTML,
+            'url'               => $info['expiring_download_url'],
+        ]);
+    }
+
+    /**
+     * @param Application $app
+     * @param string      $slug
+     * @param string      $branch
+     * @param string      $artifact
+     *
+     * @return string
+     * @throws \RuntimeException
+     * @throws RequestFailedException
+     */
+    public function getArtifactJson(Application $app, string $slug, string $branch, string $artifact) : string {
         /** @var Client $client */
         $client = $app['guzzle'];
         /** @var BuildsService $builds */
@@ -64,8 +106,7 @@ class ArtifactsController
         }
 
         $res = $client->get('apps/'.$slug.'/builds/'.$lastBuildSlug.'/artifacts/'.$build->slug);
-        $res = json_decode($res->getBody()->getContents(), true)['data'];
 
-        return $app->redirect($res['public_install_page_url'] ?: $res['expiring_download_url']);
+        return $res->getBody()->getContents();
     }
 }

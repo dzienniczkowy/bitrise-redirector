@@ -34,6 +34,9 @@ Get redirected to the download link of a specific build artifact ([example](http
 
  * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}`
 
+Get info of last artifact on specific branch ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/app-debug-bitrise-signed.apk/info)):
+
+ * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}/info`
 
 ## Development
 

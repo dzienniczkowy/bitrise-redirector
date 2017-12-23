@@ -53,6 +53,9 @@ $builds->get('/{branch}/artifacts', 'Wulkanowy\\BitriseRedirector\\ArtifactsCont
 // Redirect to specific latest build artifact on a specific branch
 $builds->get('/{branch}/artifacts/{artifact}', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::artifactAction');
 
+// Get info of artifacts on specific branch
+$builds->get('/{branch}/artifacts/{artifact}/info', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::artifactInfoAction');
+
 $app->mount('/v0.1/apps/{slug}/builds', $builds);
 
 $app->error(function (RequestFailedException $e) {
