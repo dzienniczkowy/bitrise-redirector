@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/version?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
 [![Latest Unstable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/v/unstable?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
-[![Dependency Status](https://www.versioneye.com/user/projects/59aaf1f10fb24f004e2b8610/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59aaf1f10fb24f004e2b8610)
+[![Dependency Status](https://img.shields.io/gemnasium/wulkanowy/bitrise-redirector.svg?style=flat-square)](https://gemnasium.com/github.com/wulkanowy/bitrise-redirector)
 [![StyleCI](https://styleci.io/repos/102099433/shield?branch=master)](https://styleci.io/repos/102099433)
 
 Extends the [Bitrise REST API](http://devcenter.bitrise.io/api/v0.1/) with deterministic/bookmarkable URLs for:
