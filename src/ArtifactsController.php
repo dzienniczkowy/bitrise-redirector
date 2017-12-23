@@ -52,13 +52,14 @@ class ArtifactsController
      * @param string      $branch
      * @param string      $artifact
      *
-     * @return JsonResponse
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws RequestFailedException
+     *
+     * @return JsonResponse
      */
-    public function artifactInfoAction(Application $app, string $slug, string $branch, string $artifact) : JsonResponse {
-
+    public function artifactInfoAction(Application $app, string $slug, string $branch, string $artifact) : JsonResponse
+    {
         $info = json_decode($this->getArtifactJson($app, $slug, $branch, $artifact), true)['data'];
 
         /** @var Client $downloadPage */
@@ -66,7 +67,7 @@ class ArtifactsController
         $dom->loadHTML($app['guzzle']->get($info['public_install_page_url'])->getBody()->getContents());
 
         return $app->json([
-            'latestVersion'     =>$dom->querySelectorAll('h1')[2]->innerHTML,
+            'latestVersion'     => $dom->querySelectorAll('h1')[2]->innerHTML,
             'latestVersionCode' => $dom->querySelectorAll('.size')[2]->innerHTML,
             'url'               => $info['expiring_download_url'],
         ]);
@@ -78,11 +79,13 @@ class ArtifactsController
      * @param string      $branch
      * @param string      $artifact
      *
-     * @return string
      * @throws \RuntimeException
      * @throws RequestFailedException
+     *
+     * @return string
      */
-    public function getArtifactJson(Application $app, string $slug, string $branch, string $artifact) : string {
+    public function getArtifactJson(Application $app, string $slug, string $branch, string $artifact) : string
+    {
         /** @var Client $client */
         $client = $app['guzzle'];
         /** @var BuildsService $builds */
