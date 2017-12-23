@@ -5,7 +5,7 @@
     "require": {
         "roave/security-advisories": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
-        "silex/silex": "~2.0",
+        "silex/silex": "^2.2.1",
         "rebangm/silex-guzzlehttp-provider": "^2.0",
         "ivopetkov/html5-dom-document-php": "^0.5.8"
     },
