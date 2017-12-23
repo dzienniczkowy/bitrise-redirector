@@ -30,7 +30,7 @@ Get json list of build artifacts for the latest build on a specific branch ([exa
 
  * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts`
 
-Get redirected to the download link of a specific build artifact ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/app-debug.apk)):
+Get redirected to the download link of a specific build artifact ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/app-debug-bitrise-signed.apk)):
 
  * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}`
 
