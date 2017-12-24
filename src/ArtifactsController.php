@@ -41,7 +41,7 @@ class ArtifactsController
      */
     public function artifactAction(Application $app, string $slug, string $branch, string $artifact) : RedirectResponse
     {
-        $res = json_decode($this->getArtifactJson($app, $slug, $branch, $artifact))['data'];
+        $res = json_decode($this->getArtifactJson($app, $slug, $branch, $artifact), true)['data'];
 
         return $app->redirect($res['public_install_page_url'] ?: $res['expiring_download_url']);
     }
