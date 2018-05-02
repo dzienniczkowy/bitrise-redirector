@@ -2,6 +2,7 @@
 
 use Silex\ControllerCollection;
 use SilexGuzzle\GuzzleServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wulkanowy\BitriseRedirector\ArtifactsService;
 use Wulkanowy\BitriseRedirector\BuildsService;
