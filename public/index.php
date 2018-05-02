@@ -39,6 +39,10 @@ HTML
 );
 });
 
+$app->after(function (Request $request, Response $response) {
+    $response->headers->set('Access-Control-Allow-Origin', 'https://wulkanowy.github.io');
+});
+
 /**
  * @var ControllerCollection
  */
