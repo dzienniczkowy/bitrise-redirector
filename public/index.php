@@ -68,9 +68,9 @@ $app->error(function (RequestFailedException $e) {
     return new Response($e->getMessage(), 404);
 });
 
-$app->register(new Silex\Provider\HttpCacheServiceProvider(), array(
+$app->register(new Silex\Provider\HttpCacheServiceProvider(), [
     'http_cache.cache_dir' => dirname(__DIR__).'/var/cache/',
-));
+]);
 
 if ($app['debug']) {
     $app->run();
