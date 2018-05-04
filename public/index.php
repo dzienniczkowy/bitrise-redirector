@@ -42,6 +42,7 @@ HTML
 
 $app->after(function (Request $request, Response $response) {
     $response->headers->set('Access-Control-Allow-Origin', 'https://wulkanowy.github.io');
+    $response->headers->set('Cache-Control', 's-maxage=60');
 });
 
 /**
@@ -67,4 +68,12 @@ $app->error(function (RequestFailedException $e) {
     return new Response($e->getMessage(), 404);
 });
 
-$app->run();
+$app->register(new Silex\Provider\HttpCacheServiceProvider(), array(
+    'http_cache.cache_dir' => dirname(__DIR__).'/var/cache/',
+));
+
+if ($app['debug']) {
+    $app->run();
+} else {
+    $app['http_cache']->run();
+}
