@@ -70,6 +70,7 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param string $artifact
      *
+     * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws RequestFailedException
@@ -89,6 +90,10 @@ class ArtifactsController extends Controller
                 'latestVersion'     => $dom->querySelectorAll('h1')[2]->innerHTML,
                 'latestVersionCode' => $dom->querySelectorAll('.size')[2]->innerHTML,
                 'url'               => $info['expiring_download_url'],
+            ],
+            200,
+            [
+                'Access-Control-Allow-Origin' => $this->container->getParameter('cors_origin'),
             ]
         );
     }
