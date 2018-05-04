@@ -10,6 +10,10 @@
     "APP_ENV": {
       "description": "App environment (prod/debug)",
       "value": "prod"
+    },
+    "CORS_ORIGIN": {
+      "description": "Cross-origin resource sharing (i.g. https://example.com)",
+      "value": "*"
     }
   }
 }
