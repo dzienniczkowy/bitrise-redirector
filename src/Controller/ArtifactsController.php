@@ -5,6 +5,7 @@ namespace Wulkanowy\BitriseRedirector\Controller;
 use GuzzleHttp\Client;
 use IvoPetkov\HTML5DOMDocument;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Wulkanowy\BitriseRedirector\Service\ArtifactsService;
@@ -27,11 +28,17 @@ class ArtifactsController extends Controller
      */
     private $client;
 
+    /**
+     * @var FilesystemCache
+     */
+    private $cache;
+
     public function __construct(Client $client, BuildsService $builds, ArtifactsService $artifacts)
     {
         $this->builds = $builds;
         $this->artifacts = $artifacts;
         $this->client = $client;
+        $this->cache = new FilesystemCache();
     }
 
     /**
@@ -40,6 +47,7 @@ class ArtifactsController extends Controller
      *
      * @throws \RuntimeException
      * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return JsonResponse
      */
@@ -55,14 +63,15 @@ class ArtifactsController extends Controller
      *
      * @throws \RuntimeException
      * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return RedirectResponse
      */
     public function artifactAction(string $slug, string $branch, string $artifact): RedirectResponse
     {
-        $res = json_decode($this->getArtifactJson($slug, $branch, $artifact), true)['data'];
+        $res = $this->getArtifactJson($slug, $branch, $artifact)->data;
 
-        return $this->redirect($res['public_install_page_url'] ?: $res['expiring_download_url']);
+        return $this->redirect($res->public_install_page_url ?: $res->expiring_download_url);
     }
 
     /**
@@ -74,22 +83,31 @@ class ArtifactsController extends Controller
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return JsonResponse
      */
     public function artifactInfoAction(string $slug, string $branch, string $artifact): JsonResponse
     {
-        $info = json_decode($this->getArtifactJson($slug, $branch, $artifact), true)['data'];
+        $info = $this->getArtifactJson($slug, $branch, $artifact)->data;
+
+        $tag = 'artifact.'.$branch.'.'.$artifact.'.html';
+        if ($this->cache->has($tag)) {
+            $response = $this->cache->get($tag);
+        } else {
+            $response = $this->client->get($info->public_install_page_url)->getBody()->getContents();
+            $this->cache->set($tag, $response, 60);
+        }
 
         /** @var Client $downloadPage */
         $dom = new HTML5DOMDocument();
-        $dom->loadHTML($this->client->get($info['public_install_page_url'])->getBody()->getContents());
+        $dom->loadHTML($response);
 
         return $this->json(
             [
                 'latestVersion'     => $dom->querySelectorAll('h1')[2]->innerHTML,
                 'latestVersionCode' => $dom->querySelectorAll('.size')[2]->innerHTML,
-                'url'               => $info['expiring_download_url'],
+                'url'               => $info->expiring_download_url,
             ],
             200,
             [
@@ -105,10 +123,11 @@ class ArtifactsController extends Controller
      *
      * @throws \RuntimeException
      * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      *
-     * @return string
+     * @return \stdClass
      */
-    public function getArtifactJson(string $slug, string $branch, string $artifact): string
+    public function getArtifactJson(string $slug, string $branch, string $artifact): \stdClass
     {
         $lastBuildSlug = $this->builds->getLastBuildSlugByBranch($this->client, $branch, $slug);
         $artifactsArray = $this->artifacts->getArtifactsListByBranch($this->client, $branch, $slug);
@@ -125,8 +144,16 @@ class ArtifactsController extends Controller
             throw new RequestFailedException('Artifact not found.', 404);
         }
 
-        $res = $this->client->get('apps/'.$slug.'/builds/'.$lastBuildSlug.'/artifacts/'.$build->slug);
+        $tag = 'artifact.'.$branch.'.'.$artifact.'.json';
 
-        return $res->getBody()->getContents();
+        if ($this->cache->has($tag)) {
+            $response = $this->cache->get($tag);
+        } else {
+            $response = $this->client->get('apps/'.$slug.'/builds/'.$lastBuildSlug.'/artifacts/'.$build->slug)
+                ->getBody()->getContents();
+            $this->cache->set($tag, $response, 3600);
+        }
+
+        return \json_decode($response);
     }
 }

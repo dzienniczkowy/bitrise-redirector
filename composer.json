@@ -9,6 +9,7 @@
         "eightpoints/guzzle-bundle": "^7.3",
         "guzzlehttp/guzzle": "^6.3",
         "ivopetkov/html5-dom-document-php": "^0.5.9",
+        "symfony/cache": "^4.0",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",

@@ -4,6 +4,7 @@ namespace Wulkanowy\BitriseRedirector\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 
 class BuildsService
 {
@@ -13,26 +14,46 @@ class BuildsService
     private $status = 'success';
 
     /**
+     * @var FilesystemCache
+     */
+    private $cache;
+
+    public function __construct()
+    {
+        $this->cache = new FilesystemCache();
+    }
+
+    /**
      * @param Client $client
      * @param string $branch
      * @param string $slug
      *
      * @throws \RuntimeException
      * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return string
      */
     public function getLastBuildSlugByBranch(Client $client, string $branch, string $slug) : string
     {
-        try {
-            $response = $client->get('apps/'.$slug.'/builds');
-        } catch (ClientException $e) {
-            throw new RequestFailedException('App not exist.');
+        $tag = 'builds.last';
+
+        if ($this->cache->has($tag)) {
+            $response = $this->cache->get($tag);
+        } else {
+            try {
+                $res = $client->get('apps/'.$slug.'/builds');
+            } catch (ClientException $e) {
+                throw new RequestFailedException('App not exist.');
+            }
+
+            $response = $res->getBody()->getContents();
+            $this->cache->set($tag, $response, 3600);
         }
 
-        $response = json_decode($response->getBody()->getContents());
+        $json = json_decode($response);
 
-        foreach ($response->data as $key => $value) {
+        foreach ($json->data as $key => $value) {
             if ($branch === $value->branch && $this->status === $value->status_text) {
                 return $value->slug;
             }

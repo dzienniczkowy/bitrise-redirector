@@ -26,6 +26,7 @@ class BuildsController extends Controller
      *
      * @throws \RuntimeException
      * @throws \Wulkanowy\BitriseRedirector\Service\RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return RedirectResponse
      */
