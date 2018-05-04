@@ -24,9 +24,10 @@ class BuildsController extends Controller
      * @param string        $slug
      * @param string        $branch
      *
-     * @return RedirectResponse
      * @throws \RuntimeException
      * @throws \Wulkanowy\BitriseRedirector\Service\RequestFailedException
+     *
+     * @return RedirectResponse
      */
     public function latestAction(BuildsService $builds, string $slug, string $branch) : RedirectResponse
     {

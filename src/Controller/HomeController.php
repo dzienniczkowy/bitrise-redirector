@@ -4,13 +4,13 @@ namespace Wulkanowy\BitriseRedirector\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class HomeController extends Controller
 {
     /**
-     * @return Response
      * @throws \InvalidArgumentException
+     *
+     * @return Response
      */
     public function index(): Response
     {

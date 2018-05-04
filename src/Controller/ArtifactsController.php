@@ -39,8 +39,9 @@ class ArtifactsController extends Controller
      * @param string $branch
      *
      * @throws \RuntimeException
-     * @return JsonResponse
      * @throws RequestFailedException
+     *
+     * @return JsonResponse
      */
     public function listAction(string $slug, string $branch): JsonResponse
     {
@@ -52,9 +53,10 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param string $artifact
      *
-     * @return RedirectResponse
      * @throws \RuntimeException
      * @throws RequestFailedException
+     *
+     * @return RedirectResponse
      */
     public function artifactAction(string $slug, string $branch, string $artifact): RedirectResponse
     {
@@ -68,10 +70,11 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param string $artifact
      *
-     * @return JsonResponse
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      * @throws RequestFailedException
+     *
+     * @return JsonResponse
      */
     public function artifactInfoAction(string $slug, string $branch, string $artifact): JsonResponse
     {
@@ -95,13 +98,14 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param string $artifact
      *
-     * @return string
      * @throws \RuntimeException
      * @throws RequestFailedException
+     *
+     * @return string
      */
     public function getArtifactJson(string $slug, string $branch, string $artifact): string
     {
-        $lastBuildSlug  = $this->builds->getLastBuildSlugByBranch($this->client, $branch, $slug);
+        $lastBuildSlug = $this->builds->getLastBuildSlugByBranch($this->client, $branch, $slug);
         $artifactsArray = $this->artifacts->getArtifactsListByBranch($this->client, $branch, $slug);
 
         $build = null;
