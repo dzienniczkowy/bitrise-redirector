@@ -89,14 +89,18 @@ class ArtifactsController extends Controller
      */
     public function artifactInfoAction(string $slug, string $branch, string $artifact): JsonResponse
     {
-        $info = $this->getArtifactJson($slug, $branch, $artifact)->data;
+        $infoTag = 'artifact.'.$branch.'.'.$artifact.'.json';
+        $responseTag = 'artifact.'.$branch.'.'.$artifact.'.html';
 
-        $tag = 'artifact.'.$branch.'.'.$artifact.'.html';
-        if ($this->cache->has($tag)) {
-            $response = $this->cache->get($tag);
+        if ($this->cache->has($responseTag)) {
+            $response = $this->cache->get($responseTag);
+            $info = $this->cache->get($infoTag);
         } else {
+            $info = $this->getArtifactJson($slug, $branch, $artifact)->data;
+            $this->cache->set($infoTag, $info, 60);
+
             $response = $this->client->get($info->public_install_page_url)->getBody()->getContents();
-            $this->cache->set($tag, $response, 60);
+            $this->cache->set($responseTag, $response, 60);
         }
 
         /** @var Client $downloadPage */
@@ -144,15 +148,8 @@ class ArtifactsController extends Controller
             throw new RequestFailedException('Artifact not found.', 404);
         }
 
-        $tag = 'artifact.'.$branch.'.'.$artifact.'.json';
-
-        if ($this->cache->has($tag)) {
-            $response = $this->cache->get($tag);
-        } else {
-            $response = $this->client->get('apps/'.$slug.'/builds/'.$lastBuildSlug.'/artifacts/'.$build->slug)
-                ->getBody()->getContents();
-            $this->cache->set($tag, $response, 3600);
-        }
+        $response = $this->client->get('apps/'.$slug.'/builds/'.$lastBuildSlug.'/artifacts/'.$build->slug)
+            ->getBody()->getContents();
 
         return \json_decode($response);
     }

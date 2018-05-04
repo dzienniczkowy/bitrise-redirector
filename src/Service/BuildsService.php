@@ -36,7 +36,7 @@ class BuildsService
      */
     public function getLastBuildSlugByBranch(Client $client, string $branch, string $slug) : string
     {
-        $tag = 'builds.last';
+        $tag = 'builds.'.$branch.'.'.$slug.'.last';
 
         if ($this->cache->has($tag)) {
             $response = $this->cache->get($tag);
