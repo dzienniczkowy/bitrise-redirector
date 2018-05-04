@@ -1,5 +1,12 @@
-/.idea/
-/vendor/
+###> symfony/framework-bundle ###
+/.env
+/public/bundles/
 /var/
-.env
+/vendor/
+###< symfony/framework-bundle ###
+.idea/
 .php_cs.cache
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

@@ -49,9 +49,9 @@ $ composer create-project wulkanowy/bitrise-redirector
 Start server with API_KEY and DEBUG variable:
 
 ```bash
-$ DEBUG=true API_KEY={key} php -S localhost:8080 -t public public/index.php
+$ bin/console server:run
 ```
 
 Open the webapp in browser:
 
-http://localhost:8080
+http://127.0.0.1:8000

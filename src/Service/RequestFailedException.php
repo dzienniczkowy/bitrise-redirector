@@ -1,6 +1,6 @@
 <?php
 
-namespace Wulkanowy\BitriseRedirector;
+namespace Wulkanowy\BitriseRedirector\Service;
 
 class RequestFailedException extends \Exception
 {

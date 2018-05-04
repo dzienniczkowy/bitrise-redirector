@@ -1,79 +1,39 @@
 <?php
 
-use Silex\ControllerCollection;
-use SilexGuzzle\GuzzleServiceProvider;
+use Wulkanowy\BitriseRedirector\Kernel;
+use Symfony\Component\Debug\Debug;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Wulkanowy\BitriseRedirector\ArtifactsService;
-use Wulkanowy\BitriseRedirector\BuildsService;
-use Wulkanowy\BitriseRedirector\RequestFailedException;
 
-require_once __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
-$app = new Silex\Application();
-$app['debug'] = getenv('DEBUG');
-
-$app->register(new GuzzleServiceProvider(), [
-    'guzzle.base_uri'        => 'https://api.bitrise.io/v0.1/',
-    'guzzle.request_options' => [
-        'headers' => [
-            'Authorization' => 'token '.getenv('API_KEY'),
-        ],
-    ],
-]);
-
-$app['builds'] = function () {
-    return new BuildsService();
-};
-$app['artifacts'] = function () {
-    return new ArtifactsService();
-};
-
-$app->get('/', function () {
-    return new Response(<<<'HTML'
-<!DOCTYPE html>
-<title>Bitrise redirector</title>
-<h1>Bitrise redirector</h1>
-For more info go to
-<a href="https://github.com/wulkanowy/bitrise-redirector#bitrise-redirector">github page</a>.
-HTML
-);
-});
-
-$app->after(function (Request $request, Response $response) {
-    $response->headers->set('Access-Control-Allow-Origin', 'https://wulkanowy.github.io');
-    $response->headers->set('Cache-Control', 's-maxage=60');
-});
-
-/**
- * @var ControllerCollection
- */
-$builds = $app['controllers_factory'];
-
-// Redirect to the latest build on a specific branch
-$builds->get('/{branch}', 'Wulkanowy\\BitriseRedirector\\BuildsController::latestAction');
-
-// Get latest build artifacts on a specific branch
-$builds->get('/{branch}/artifacts', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::listAction');
-
-// Redirect to specific latest build artifact on a specific branch
-$builds->get('/{branch}/artifacts/{artifact}', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::artifactAction');
-
-// Get info of artifacts on specific branch
-$builds->get('/{branch}/artifacts/{artifact}/info', 'Wulkanowy\\BitriseRedirector\\ArtifactsController::artifactInfoAction');
-
-$app->mount('/v0.1/apps/{slug}/builds', $builds);
-
-$app->error(function (RequestFailedException $e) {
-    return new Response($e->getMessage(), 404);
-});
-
-$app->register(new Silex\Provider\HttpCacheServiceProvider(), [
-    'http_cache.cache_dir' => dirname(__DIR__).'/var/cache/',
-]);
-
-if ($app['debug']) {
-    $app->run();
-} else {
-    $app['http_cache']->run();
+// The check is to ensure we don't use .env in production
+if (!isset($_SERVER['APP_ENV'])) {
+    if (!class_exists(Dotenv::class)) {
+        throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
+    }
+    (new Dotenv())->load(__DIR__.'/../.env');
 }
+
+$env = $_SERVER['APP_ENV'] ?? 'dev';
+$debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== $env));
+
+if ($debug) {
+    umask(0000);
+
+    Debug::enable();
+}
+
+if ($trustedProxies = $_SERVER['TRUSTED_PROXIES'] ?? false) {
+    Request::setTrustedProxies(explode(',', $trustedProxies), Request::HEADER_X_FORWARDED_ALL ^ Request::HEADER_X_FORWARDED_HOST);
+}
+
+if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
+    Request::setTrustedHosts(explode(',', $trustedHosts));
+}
+
+$kernel = new Kernel($env, $debug);
+$request = Request::createFromGlobals();
+$response = $kernel->handle($request);
+$response->send();
+$kernel->terminate($request, $response);

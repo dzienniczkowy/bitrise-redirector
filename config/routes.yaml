@@ -1,0 +1,20 @@
+index:
+    path: /
+    controller: Wulkanowy\BitriseRedirector\Controller\HomeController::index
+
+branch:
+    path: /v0.1/apps/{slug}/builds/{branch}
+    controller: Wulkanowy\BitriseRedirector\Controller\BuildsController::latestAction
+    defaults: { branch: master }
+
+artifacts:
+    path: /v0.1/apps/{slug}/builds/{branch}/artifacts
+    controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::listAction
+
+artifact:
+    path: /v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}
+    controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::artifactAction
+
+info:
+    path: /v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}/info
+    controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::artifactInfoAction
