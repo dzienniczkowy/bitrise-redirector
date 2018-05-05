@@ -51,7 +51,8 @@ class ArtifactsService
         return json_decode($response)->data;
     }
 
-    public function getArtifactByFilename(array $artifacts, string $filename): ?\stdClass {
+    public function getArtifactByFilename(array $artifacts, string $filename): ?\stdClass
+    {
         foreach ($artifacts as $key => $item) {
             if ($filename === $item->title) {
                 return $item;

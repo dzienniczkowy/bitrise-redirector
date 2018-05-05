@@ -34,10 +34,10 @@ class ArtifactsController extends Controller
 
     public function __construct(Client $client, BuildsService $builds, ArtifactsService $artifacts)
     {
-        $this->builds    = $builds;
+        $this->builds = $builds;
         $this->artifacts = $artifacts;
-        $this->client    = $client;
-        $this->cache     = new FilesystemCache();
+        $this->client = $client;
+        $this->cache = new FilesystemCache();
     }
 
     /**
