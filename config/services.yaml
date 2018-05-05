@@ -27,9 +27,10 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    Wulkanowy\BitriseRedirector\Controller\ArtifactsController:
+    Wulkanowy\BitriseRedirector\Service\ArtifactsService:
         arguments:
             - "@eight_points_guzzle.client.bitrise_client"
-    Wulkanowy\BitriseRedirector\Controller\BuildsController:
+
+    Wulkanowy\BitriseRedirector\Service\BuildsService:
         arguments:
             - "@eight_points_guzzle.client.bitrise_client"

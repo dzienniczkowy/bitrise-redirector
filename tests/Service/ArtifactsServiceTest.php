@@ -2,6 +2,7 @@
 
 namespace Wulkanowy\BitriseRedirector\Tests\Service;
 
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use Wulkanowy\BitriseRedirector\Service\ArtifactsService;
 use Wulkanowy\BitriseRedirector\Service\BuildsService;
@@ -10,7 +11,10 @@ class ArtifactsServiceTest extends TestCase
 {
     public function testGetArtifactByFilename(): void
     {
-        $artifacts = new ArtifactsService($this->getMockBuilder(BuildsService::class)->getMock());
+        $artifacts = new ArtifactsService(
+            $this->getMockBuilder(Client::class)->getMock(),
+            $this->getMockBuilder(BuildsService::class)->disableOriginalConstructor()->getMock()
+        );
 
         $artifact1 = new \stdClass();
         $artifact1->title = 'test-name';

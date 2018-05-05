@@ -10,16 +10,6 @@ use Wulkanowy\BitriseRedirector\Service\BuildsService;
 class BuildsController extends Controller
 {
     /**
-     * @var Client
-     */
-    private $client;
-
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
-
-    /**
      * @param BuildsService $builds
      * @param string        $slug
      * @param string        $branch
@@ -32,7 +22,7 @@ class BuildsController extends Controller
      */
     public function latestAction(BuildsService $builds, string $slug, string $branch) : RedirectResponse
     {
-        $lastBuildSlug = $builds->getLastBuildInfoByBranch($this->client, $branch, $slug)['slug'];
+        $lastBuildSlug = $builds->getLastBuildInfoByBranch($branch, $slug)['slug'];
 
         return $this->redirect('https://www.bitrise.io/build/'.$lastBuildSlug);
     }
