@@ -3,7 +3,6 @@
 namespace Wulkanowy\BitriseRedirector\Controller;
 
 use GuzzleHttp\Client;
-use IvoPetkov\HTML5DOMDocument;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,10 +34,10 @@ class ArtifactsController extends Controller
 
     public function __construct(Client $client, BuildsService $builds, ArtifactsService $artifacts)
     {
-        $this->builds = $builds;
+        $this->builds    = $builds;
         $this->artifacts = $artifacts;
-        $this->client = $client;
-        $this->cache = new FilesystemCache();
+        $this->client    = $client;
+        $this->cache     = new FilesystemCache();
     }
 
     /**
@@ -69,7 +68,7 @@ class ArtifactsController extends Controller
      */
     public function artifactAction(string $slug, string $branch, string $artifact): RedirectResponse
     {
-        $res = $this->getArtifactJson($slug, $branch, $artifact)->data;
+        $res = $this->getArtifactJson($slug, $branch, $artifact);
 
         return $this->redirect($res->public_install_page_url ?: $res->expiring_download_url);
     }
@@ -90,28 +89,24 @@ class ArtifactsController extends Controller
     public function artifactInfoAction(string $slug, string $branch, string $artifact): JsonResponse
     {
         $infoTag = 'artifact.'.$branch.'.'.$artifact.'.json';
-        $responseTag = 'artifact.'.$branch.'.'.$artifact.'.html';
 
-        if ($this->cache->has($responseTag)) {
-            $response = $this->cache->get($responseTag);
+        if ($this->cache->has($infoTag)) {
             $info = $this->cache->get($infoTag);
         } else {
-            $info = $this->getArtifactJson($slug, $branch, $artifact)->data;
+            $info = $this->getArtifactJson($slug, $branch, $artifact);
             $this->cache->set($infoTag, $info, 60);
-
-            $response = $this->client->get($info->public_install_page_url)->getBody()->getContents();
-            $this->cache->set($responseTag, $response, 60);
         }
-
-        /** @var Client $downloadPage */
-        $dom = new HTML5DOMDocument();
-        $dom->loadHTML($response);
 
         return $this->json(
             [
-                'latestVersion'     => $dom->querySelectorAll('h1')[2]->innerHTML,
-                'latestVersionCode' => $dom->querySelectorAll('.size')[2]->innerHTML,
-                'url'               => $info->expiring_download_url,
+                'build_number'            => $info->build_number,
+                'commit_view_url'         => $info->commit_view_url,
+                'expiring_download_url'   => $info->expiring_download_url,
+                'file_size_bytes'         => $info->file_size_bytes,
+                'finished_at'             => $info->finished_at,
+                'public_install_page_url' => $info->public_install_page_url,
+                'latestVersionCode'       => $info->build_number, // depracated
+                'url'                     => $info->expiring_download_url, // deprecated
             ],
             200,
             [
@@ -133,7 +128,7 @@ class ArtifactsController extends Controller
      */
     public function getArtifactJson(string $slug, string $branch, string $artifact): \stdClass
     {
-        $lastBuildSlug = $this->builds->getLastBuildSlugByBranch($this->client, $branch, $slug);
+        $buildInfo = $this->builds->getLastBuildInfoByBranch($this->client, $branch, $slug);
         $artifactsArray = $this->artifacts->getArtifactsListByBranch($this->client, $branch, $slug);
 
         $build = null;
@@ -148,9 +143,15 @@ class ArtifactsController extends Controller
             throw new RequestFailedException('Artifact not found.', 404);
         }
 
-        $response = $this->client->get('apps/'.$slug.'/builds/'.$lastBuildSlug.'/artifacts/'.$build->slug)
+        $response = $this->client->get('apps/'.$slug.'/builds/'.$buildInfo['slug'].'/artifacts/'.$build->slug)
             ->getBody()->getContents();
 
-        return \json_decode($response);
+        $info = \json_decode($response)->data;
+
+        $info->build_number = $buildInfo['build_number'];
+        $info->commit_view_url = $buildInfo['commit_view_url'];
+        $info->finished_at = $buildInfo['finished_at'];
+
+        return $info;
     }
 }

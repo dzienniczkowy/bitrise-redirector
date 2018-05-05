@@ -8,10 +8,7 @@ use Symfony\Component\Cache\Simple\FilesystemCache;
 
 class BuildsService
 {
-    /**
-     * @var string Desired type of build
-     */
-    private $status = 'success';
+    private const STATUS_SUCCESS = 1;
 
     /**
      * @var FilesystemCache
@@ -32,17 +29,26 @@ class BuildsService
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      *
-     * @return string
+     * @return array
      */
-    public function getLastBuildSlugByBranch(Client $client, string $branch, string $slug) : string
+    public function getLastBuildInfoByBranch(Client $client, string $branch, string $slug): array
     {
-        $tag = 'builds.'.$branch.'.'.$slug.'.last';
+        $tag = 'builds.'.$slug.'.'.$branch.'.last';
 
         if ($this->cache->has($tag)) {
             $response = $this->cache->get($tag);
         } else {
             try {
-                $res = $client->get('apps/'.$slug.'/builds');
+                $res = $client->get(
+                    'apps/'.$slug.'/builds',
+                    [
+                        'query' => [
+                            'branch' => $branch,
+                            'limit'  => 1,
+                            'status' => self::STATUS_SUCCESS,
+                        ],
+                    ]
+                );
             } catch (ClientException $e) {
                 throw new RequestFailedException('App not exist.');
             }
@@ -51,15 +57,12 @@ class BuildsService
             $this->cache->set($tag, $response, 3600);
         }
 
-        $json = json_decode($response);
+        $lastBuild = json_decode($response, true)['data'];
 
-        foreach ($json->data as $key => $value) {
-            if ($branch === $value->branch && $this->status === $value->status_text) {
-                return $value->slug;
-            }
+        if (empty($lastBuild)) {
+            throw new RequestFailedException('Build on branch '.$branch.' not found.');
         }
 
-        throw new RequestFailedException('Build on branch '.$branch.
-            ' and status '.$this->status.' not exist in last 50 builds.');
+        return $lastBuild[0];
     }
 }

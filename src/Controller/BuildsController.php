@@ -32,7 +32,7 @@ class BuildsController extends Controller
      */
     public function latestAction(BuildsService $builds, string $slug, string $branch) : RedirectResponse
     {
-        $lastBuildSlug = $builds->getLastBuildSlugByBranch($this->client, $branch, $slug);
+        $lastBuildSlug = $builds->getLastBuildInfoByBranch($this->client, $branch, $slug)['slug'];
 
         return $this->redirect('https://www.bitrise.io/build/'.$lastBuildSlug);
     }

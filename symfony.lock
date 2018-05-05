@@ -20,9 +20,6 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
-    "ivopetkov/html5-dom-document-php": {
-        "version": "v0.5.9"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },

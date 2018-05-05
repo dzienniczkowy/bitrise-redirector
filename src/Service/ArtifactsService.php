@@ -38,7 +38,7 @@ class ArtifactsService
     {
         $tag = 'artifacts.'.$slug.'.'.$branch;
 
-        $lastBuildSlug = $this->builds->getLastBuildSlugByBranch($client, $branch, $slug);
+        $lastBuildSlug = $this->builds->getLastBuildInfoByBranch($client, $branch, $slug)['slug'];
 
         if ($this->cache->has($tag)) {
             $response = $this->cache->get($tag);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "684b947c5107cabf143e7c5f268d19ae",
+    "content-hash": "289e3d4661ee3a67adde2a8150267b62",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -321,46 +321,6 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
-        },
-        {
-            "name": "ivopetkov/html5-dom-document-php",
-            "version": "v0.5.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ivopetkov/html5-dom-document-php.git",
-                "reference": "86a6e417e367b8e32747771d6e7e70a685ba1755"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ivopetkov/html5-dom-document-php/zipball/86a6e417e367b8e32747771d6e7e70a685ba1755",
-                "reference": "86a6e417e367b8e32747771d6e7e70a685ba1755",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "IvoPetkov\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivo Petkov",
-                    "email": "ivo@ivopetkov.com",
-                    "homepage": "http://ivopetkov.com"
-                }
-            ],
-            "description": "HTML5 DOMDocument PHP library (extends DOMDocument)",
-            "time": "2018-04-28T16:04:39+00:00"
         },
         {
             "name": "psr/cache",
