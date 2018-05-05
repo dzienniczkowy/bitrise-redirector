@@ -60,8 +60,9 @@ class BuildsService
      * @param string $slug
      * @param string $branch
      *
-     * @return \Psr\Http\Message\ResponseInterface
      * @throws RequestFailedException
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     private function getLastBuildByBranch(string $slug, string $branch): \Psr\Http\Message\ResponseInterface
     {

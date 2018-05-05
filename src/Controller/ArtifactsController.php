@@ -3,7 +3,6 @@
 namespace Wulkanowy\BitriseRedirector\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Wulkanowy\BitriseRedirector\Service\ArtifactsService;
