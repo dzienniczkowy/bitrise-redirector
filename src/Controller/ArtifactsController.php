@@ -129,15 +129,8 @@ class ArtifactsController extends Controller
     public function getArtifactJson(string $slug, string $branch, string $artifact): \stdClass
     {
         $buildInfo = $this->builds->getLastBuildInfoByBranch($this->client, $branch, $slug);
-        $artifactsArray = $this->artifacts->getArtifactsListByBranch($this->client, $branch, $slug);
-
-        $build = null;
-        foreach ($artifactsArray as $key => $value) {
-            if ($artifact === $value->title) {
-                $build = $value;
-                break;
-            }
-        }
+        $artifacts = $this->artifacts->getArtifactsListByBranch($this->client, $branch, $slug);
+        $build = $this->artifacts->getArtifactByFilename($artifacts, $artifact);
 
         if (null === $build) {
             throw new RequestFailedException('Artifact not found.', 404);

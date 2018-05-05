@@ -1,9 +1,13 @@
 # Bitrise Redirector
 
-[![Latest Stable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/version?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
-[![Latest Unstable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/v/unstable?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
-[![Dependency Status](https://img.shields.io/gemnasium/wulkanowy/bitrise-redirector.svg?style=flat-square)](https://gemnasium.com/github.com/wulkanowy/bitrise-redirector)
+[![CircleCI](https://img.shields.io/circleci/project/github/wulkanowy/bitrise-redirector.svg?style=flat-square)](https://circleci.com/gh/wulkanowy/bitrise-redirector)
+[![Codecov](https://img.shields.io/codecov/c/github/wulkanowy/bitrise-redirector/master.svg?style=flat-square)](https://codecov.io/gh/wulkanowy/bitrise-redirector)
 [![StyleCI](https://styleci.io/repos/102099433/shield?branch=master)](https://styleci.io/repos/102099433)
+[![Latest Stable Version](https://poser.pugx.org/wulkanowy/bitrise-redirector/version?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
+[![Total Downloads](https://poser.pugx.org/wulkanowy/bitrise-redirector/downloads?format=flat-square)](https://packagist.org/packages/wulkanowy/bitrise-redirector)
+[![BCH compliance](https://bettercodehub.com/edge/badge/wulkanowy/bitrise-redirector?branch=master)](https://bettercodehub.com/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wulkanowy/bitrise-redirector/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wulkanowy/bitrise-redirector/?branch=master)
+[![Dependency Status](https://img.shields.io/gemnasium/wulkanowy/bitrise-redirector.svg?style=flat-square)](https://gemnasium.com/github.com/wulkanowy/bitrise-redirector)
 
 Extends the [Bitrise REST API](http://devcenter.bitrise.io/api/v0.1/) with deterministic/bookmarkable URLs for:
 

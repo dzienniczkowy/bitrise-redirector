@@ -1,0 +1,32 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.1
+    working_directory: ~/wulkanowy
+    steps:
+      - checkout
+      - run: sudo apt-get install zlib1g-dev
+      - run: sudo docker-php-ext-install zip
+      - run: sudo composer self-update
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+      - run: composer install -n --prefer-dist
+      - run: ./vendor/bin/simple-phpunit install
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - run:
+          command: |
+            mkdir -p ~/phpunit
+            ./vendor/bin/simple-phpunit --log-junit ~/phpunit/junit.xml --coverage-clover=coverage.xml
+      - run: ./bin/console lint:yaml config
+      - run: composer validate --strict
+      - run: bash <(curl -s https://codecov.io/bash)
+      - store_test_results:
+          path: ~/phpunit
+      - store_artifacts:
+          path: ~/phpunit

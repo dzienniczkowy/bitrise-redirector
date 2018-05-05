@@ -2,6 +2,13 @@
     "name": "wulkanowy/bitrise-redirector",
     "description": "Extends the Bitrise REST API with bookmarkable URLs for latest build and build artifacts",
     "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mikołaj Pich",
+            "email": "m.pich@outlook.com"
+        }
+    ],
     "require": {
         "php": "^7.1.3",
         "ext-iconv": "*",
@@ -17,7 +24,8 @@
         "symfony/yaml": "^4.0"
     },
     "require-dev": {
-        "symfony/dotenv": "^4.0"
+        "symfony/dotenv": "^4.0",
+        "symfony/phpunit-bridge": "^4.0"
     },
     "config": {
         "preferred-install": {
