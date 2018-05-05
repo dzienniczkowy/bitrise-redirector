@@ -105,8 +105,6 @@ class ArtifactsController extends Controller
                 'file_size_bytes'         => $info->file_size_bytes,
                 'finished_at'             => $info->finished_at,
                 'public_install_page_url' => $info->public_install_page_url,
-                'latestVersionCode'       => $info->build_number, // depracated
-                'url'                     => $info->expiring_download_url, // deprecated
             ],
             200,
             [
