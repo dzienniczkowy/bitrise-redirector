@@ -56,9 +56,10 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param int    $index
      *
-     * @return RedirectResponse
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
+     *
+     * @return RedirectResponse
      */
     public function artifactIndexAction(string $slug, string $branch, int $index): RedirectResponse
     {
@@ -70,9 +71,10 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param        $key
      *
-     * @return RedirectResponse
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
+     *
+     * @return RedirectResponse
      */
     private function getArtifact(string $slug, string $branch, $key): RedirectResponse
     {
@@ -106,9 +108,10 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param int    $index
      *
-     * @return JsonResponse
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
+     *
+     * @return JsonResponse
      */
     public function artifactInfoIndexAction(string $slug, string $branch, int $index): JsonResponse
     {
@@ -120,9 +123,10 @@ class ArtifactsController extends Controller
      * @param string $branch
      * @param        $key
      *
-     * @return JsonResponse
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
+     *
+     * @return JsonResponse
      */
     private function getArtifactsInfoResponse(string $slug, string $branch, $key): JsonResponse
     {
