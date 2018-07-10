@@ -57,9 +57,9 @@ class ArtifactsService
     }
 
     /**
-     * @param string $slug
-     * @param string $branch
-     * @param string $artifact
+     * @param string    $slug
+     * @param string    $branch
+     * @param \stdClass $artifact
      *
      * @throws \RuntimeException
      * @throws RequestFailedException
@@ -67,22 +67,20 @@ class ArtifactsService
      *
      * @return \stdClass
      */
-    public function getArtifactInfo(string $slug, string $branch, string $artifact): \stdClass
+    public function getArtifactInfo(string $slug, string $branch, ?\stdClass $artifact): \stdClass
     {
         $buildInfo = $this->builds->getLastBuildInfoByBranch($branch, $slug);
-        $artifacts = $this->getArtifactsListByBranch($branch, $slug);
-        $build = $this->getArtifactByFilename($artifacts, $artifact);
 
-        if (null === $build) {
+        if (null === $artifact) {
             throw new RequestFailedException('Artifact not found.', 404);
         }
 
-        $infoTag = 'artifact.'.$branch.'.'.$artifact.'.json';
+        $infoTag = 'artifact.'.$branch.'.'.$artifact->title.'.json';
 
         if ($this->cache->has($infoTag)) {
             $response = $this->cache->get($infoTag);
         } else {
-            $response = $this->client->get('apps/'.$slug.'/builds/'.$buildInfo['slug'].'/artifacts/'.$build->slug)
+            $response = $this->client->get('apps/'.$slug.'/builds/'.$buildInfo['slug'].'/artifacts/'.$artifact->slug)
                 ->getBody()->getContents();
             $this->cache->set($infoTag, $response, 60);
         }
@@ -96,6 +94,15 @@ class ArtifactsService
         return $info;
     }
 
+    public function getArtifact(array $artifacts, $key): ?\stdClass
+    {
+        if (\is_int($key)) {
+            return $this->getArtifactByIndex($artifacts, $key);
+        }
+
+        return $this->getArtifactByFilename($artifacts, $key);
+    }
+
     public function getArtifactByFilename(array $artifacts, string $filename): ?\stdClass
     {
         foreach ($artifacts as $key => $item) {
@@ -105,5 +112,10 @@ class ArtifactsService
         }
 
         return null;
+    }
+
+    public function getArtifactByIndex(array $artifacts, int $index): ?\stdClass
+    {
+        return $artifacts[$index] ?? null;
     }
 }

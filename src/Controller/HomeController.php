@@ -30,11 +30,17 @@ For more info go to
         <a href="{$this->generateUrl('artifacts', ['slug' => 'daeff1893f3c8128', 'branch' => 'master'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts</a></code>
         – json list of build artifacts for the latest build on a specific branch</li>
     <li><code>GET
-        <a href="{$this->generateUrl('artifact', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'artifact' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}</a></code>
-        – redirect to the download link of a specific build artifact </li>
+        <a href="{$this->generateUrl('artifactFilename', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'filename' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}</a></code>
+        – redirect to the download link of a specific build artifact</li>
     <li><code>GET
-        <a href="{$this->generateUrl('info', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'artifact' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{artifact}/info</a></code>
-        – info of last artifact on specific branch </li>
+        <a href="{$this->generateUrl('artifactIndex', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'index' => '0'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{index}</a></code>
+        – redirect to the download link of a specific build artifact (index-based version)</li>
+    <li><code>GET
+        <a href="{$this->generateUrl('infoFilename', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'filename' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}/info</a></code>
+        – info of last artifact on specific branch</li>
+    <li><code>GET
+        <a href="{$this->generateUrl('infoIndex', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'index' => '0'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{index}/info</a></code>
+        – info of last artifact on specific branch (index-based version)</li>
 </ul>
 
 HTML

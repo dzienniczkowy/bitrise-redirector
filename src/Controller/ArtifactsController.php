@@ -38,7 +38,7 @@ class ArtifactsController extends Controller
     /**
      * @param string $slug
      * @param string $branch
-     * @param string $artifact
+     * @param string $filename
      *
      * @throws \RuntimeException
      * @throws RequestFailedException
@@ -46,8 +46,38 @@ class ArtifactsController extends Controller
      *
      * @return RedirectResponse
      */
-    public function artifactAction(string $slug, string $branch, string $artifact): RedirectResponse
+    public function artifactAction(string $slug, string $branch, string $filename): RedirectResponse
     {
+        return $this->getArtifact($slug, $branch, $filename);
+    }
+
+    /**
+     * @param string $slug
+     * @param string $branch
+     * @param int    $index
+     *
+     * @return RedirectResponse
+     * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function artifactIndexAction(string $slug, string $branch, int $index): RedirectResponse
+    {
+        return $this->getArtifact($slug, $branch, $index);
+    }
+
+    /**
+     * @param string $slug
+     * @param string $branch
+     * @param        $key
+     *
+     * @return RedirectResponse
+     * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function getArtifact(string $slug, string $branch, $key): RedirectResponse
+    {
+        $artifacts = $this->artifacts->getArtifactsListByBranch($branch, $slug);
+        $artifact = $this->artifacts->getArtifact($artifacts, $key);
         $res = $this->artifacts->getArtifactInfo($slug, $branch, $artifact);
 
         return $this->redirect($res->public_install_page_url ?: $res->expiring_download_url);
@@ -56,7 +86,7 @@ class ArtifactsController extends Controller
     /**
      * @param string $slug
      * @param string $branch
-     * @param string $artifact
+     * @param string $filename
      *
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
@@ -66,8 +96,38 @@ class ArtifactsController extends Controller
      *
      * @return JsonResponse
      */
-    public function artifactInfoAction(string $slug, string $branch, string $artifact): JsonResponse
+    public function artifactInfoAction(string $slug, string $branch, string $filename): JsonResponse
     {
+        return $this->getArtifactsInfoResponse($slug, $branch, $filename);
+    }
+
+    /**
+     * @param string $slug
+     * @param string $branch
+     * @param int    $index
+     *
+     * @return JsonResponse
+     * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function artifactInfoIndexAction(string $slug, string $branch, int $index): JsonResponse
+    {
+        return $this->getArtifactsInfoResponse($slug, $branch, $index);
+    }
+
+    /**
+     * @param string $slug
+     * @param string $branch
+     * @param        $key
+     *
+     * @return JsonResponse
+     * @throws RequestFailedException
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    private function getArtifactsInfoResponse(string $slug, string $branch, $key): JsonResponse
+    {
+        $artifacts = $this->artifacts->getArtifactsListByBranch($branch, $slug);
+        $artifact = $this->artifacts->getArtifact($artifacts, $key);
         $info = $this->artifacts->getArtifactInfo($slug, $branch, $artifact);
 
         return $this->json(
