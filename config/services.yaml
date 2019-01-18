@@ -27,6 +27,10 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    Wulkanowy\BitriseRedirector\Controller\ArtifactsController:
+        arguments:
+            - $corsRule: "%env(CORS_ORIGIN)%"
+
     Wulkanowy\BitriseRedirector\Service\ArtifactsService:
         arguments:
             - "@eight_points_guzzle.client.bitrise_client"

@@ -2,16 +2,16 @@
 
 namespace Wulkanowy\BitriseRedirector\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Wulkanowy\BitriseRedirector\Service\BuildsService;
 
-class BuildsController extends Controller
+class BuildsController extends AbstractController
 {
     /**
      * @param BuildsService $builds
-     * @param string        $slug
-     * @param string        $branch
+     * @param string $slug
+     * @param string $branch
      *
      * @throws \RuntimeException
      * @throws \Wulkanowy\BitriseRedirector\Service\RequestFailedException
@@ -19,10 +19,10 @@ class BuildsController extends Controller
      *
      * @return RedirectResponse
      */
-    public function latestAction(BuildsService $builds, string $slug, string $branch) : RedirectResponse
+    public function latestAction(BuildsService $builds, string $slug, string $branch): RedirectResponse
     {
         $lastBuildSlug = $builds->getLastBuildInfoByBranch($branch, $slug)['slug'];
 
-        return $this->redirect('https://www.bitrise.io/build/'.$lastBuildSlug);
+        return $this->redirect('https://www.bitrise.io/build/' . $lastBuildSlug);
     }
 }

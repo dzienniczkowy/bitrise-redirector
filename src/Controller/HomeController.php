@@ -2,10 +2,10 @@
 
 namespace Wulkanowy\BitriseRedirector\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class HomeController extends Controller
+class HomeController extends AbstractController
 {
     /**
      * @throws \InvalidArgumentException
@@ -44,6 +44,6 @@ For more info go to
 </ul>
 
 HTML
-);
+        );
     }
 }

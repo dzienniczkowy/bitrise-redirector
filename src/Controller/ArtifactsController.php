@@ -2,21 +2,27 @@
 
 namespace Wulkanowy\BitriseRedirector\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Wulkanowy\BitriseRedirector\Service\ArtifactsService;
 use Wulkanowy\BitriseRedirector\Service\RequestFailedException;
 
-class ArtifactsController extends Controller
+class ArtifactsController extends AbstractController
 {
+    /**
+     * @var string
+     */
+    private $corsRule;
+
     /**
      * @var ArtifactsService
      */
     private $artifacts;
 
-    public function __construct(ArtifactsService $artifacts)
+    public function __construct($corsRule, ArtifactsService $artifacts)
     {
+        $this->corsRule = $corsRule;
         $this->artifacts = $artifacts;
     }
 
@@ -54,7 +60,7 @@ class ArtifactsController extends Controller
     /**
      * @param string $slug
      * @param string $branch
-     * @param int    $index
+     * @param int $index
      *
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -106,7 +112,7 @@ class ArtifactsController extends Controller
     /**
      * @param string $slug
      * @param string $branch
-     * @param int    $index
+     * @param int $index
      *
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -136,16 +142,16 @@ class ArtifactsController extends Controller
 
         return $this->json(
             [
-                'build_number'            => $info->build_number,
-                'commit_view_url'         => $info->commit_view_url,
-                'expiring_download_url'   => $info->expiring_download_url,
-                'file_size_bytes'         => $info->file_size_bytes,
-                'finished_at'             => $info->finished_at,
+                'build_number' => $info->build_number,
+                'commit_view_url' => $info->commit_view_url,
+                'expiring_download_url' => $info->expiring_download_url,
+                'file_size_bytes' => $info->file_size_bytes,
+                'finished_at' => $info->finished_at,
                 'public_install_page_url' => $info->public_install_page_url,
             ],
             200,
             [
-                'Access-Control-Allow-Origin' => $this->container->getParameter('cors_origin'),
+                'Access-Control-Allow-Origin' => $this->corsRule,
             ]
         );
     }
