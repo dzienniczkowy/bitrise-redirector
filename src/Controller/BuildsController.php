@@ -10,8 +10,8 @@ class BuildsController extends AbstractController
 {
     /**
      * @param BuildsService $builds
-     * @param string $slug
-     * @param string $branch
+     * @param string        $slug
+     * @param string        $branch
      *
      * @throws \RuntimeException
      * @throws \Wulkanowy\BitriseRedirector\Service\RequestFailedException
@@ -23,6 +23,6 @@ class BuildsController extends AbstractController
     {
         $lastBuildSlug = $builds->getLastBuildInfoByBranch($branch, $slug)['slug'];
 
-        return $this->redirect('https://www.bitrise.io/build/' . $lastBuildSlug);
+        return $this->redirect('https://www.bitrise.io/build/'.$lastBuildSlug);
     }
 }

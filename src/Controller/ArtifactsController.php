@@ -60,7 +60,7 @@ class ArtifactsController extends AbstractController
     /**
      * @param string $slug
      * @param string $branch
-     * @param int $index
+     * @param int    $index
      *
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -112,7 +112,7 @@ class ArtifactsController extends AbstractController
     /**
      * @param string $slug
      * @param string $branch
-     * @param int $index
+     * @param int    $index
      *
      * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
@@ -142,11 +142,11 @@ class ArtifactsController extends AbstractController
 
         return $this->json(
             [
-                'build_number' => $info->build_number,
-                'commit_view_url' => $info->commit_view_url,
-                'expiring_download_url' => $info->expiring_download_url,
-                'file_size_bytes' => $info->file_size_bytes,
-                'finished_at' => $info->finished_at,
+                'build_number'            => $info->build_number,
+                'commit_view_url'         => $info->commit_view_url,
+                'expiring_download_url'   => $info->expiring_download_url,
+                'file_size_bytes'         => $info->file_size_bytes,
+                'finished_at'             => $info->finished_at,
                 'public_install_page_url' => $info->public_install_page_url,
             ],
             200,
