@@ -165,8 +165,9 @@ class ArtifactsController extends AbstractController
     {
         return $this->json([
             'error' => [
+                'code'    => '404',
                 'message' => $e->getMessage(),
             ],
-        ]);
+        ], 404);
     }
 }
