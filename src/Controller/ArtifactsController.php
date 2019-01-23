@@ -31,14 +31,17 @@ class ArtifactsController extends AbstractController
      * @param string $branch
      *
      * @throws \RuntimeException
-     * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return JsonResponse
      */
     public function listAction(string $slug, string $branch): JsonResponse
     {
-        return $this->json($this->artifacts->getArtifactsListByBranch($branch, $slug));
+        try {
+            return $this->json($this->artifacts->getArtifactsListByBranch($branch, $slug));
+        } catch (RequestFailedException $e) {
+            return $this->getErrorResponse($e);
+        }
     }
 
     /**
@@ -99,7 +102,6 @@ class ArtifactsController extends AbstractController
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
-     * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return JsonResponse
@@ -114,7 +116,6 @@ class ArtifactsController extends AbstractController
      * @param string $branch
      * @param int    $index
      *
-     * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return JsonResponse
@@ -129,19 +130,23 @@ class ArtifactsController extends AbstractController
      * @param string $branch
      * @param        $key
      *
-     * @throws RequestFailedException
      * @throws \Psr\SimpleCache\InvalidArgumentException
      *
      * @return JsonResponse
      */
     private function getArtifactsInfoResponse(string $slug, string $branch, $key): JsonResponse
     {
-        $artifacts = $this->artifacts->getArtifactsListByBranch($branch, $slug);
-        $artifact = $this->artifacts->getArtifact($artifacts, $key);
-        $info = $this->artifacts->getArtifactInfo($slug, $branch, $artifact);
+        try {
+            $artifacts = $this->artifacts->getArtifactsListByBranch($branch, $slug);
+            $artifact = $this->artifacts->getArtifact($artifacts, $key);
+            $info = $this->artifacts->getArtifactInfo($slug, $branch, $artifact);
+        } catch (RequestFailedException $e) {
+            return $this->getErrorResponse($e);
+        }
 
         return $this->json(
             [
+                'error'                   => null,
                 'build_number'            => $info->build_number,
                 'commit_view_url'         => $info->commit_view_url,
                 'expiring_download_url'   => $info->expiring_download_url,
@@ -154,5 +159,14 @@ class ArtifactsController extends AbstractController
                 'Access-Control-Allow-Origin' => $this->corsRule,
             ]
         );
+    }
+
+    private function getErrorResponse(RequestFailedException $e): JsonResponse
+    {
+        return $this->json([
+            'error' => [
+                'message' => $e->getMessage(),
+            ],
+        ]);
     }
 }
