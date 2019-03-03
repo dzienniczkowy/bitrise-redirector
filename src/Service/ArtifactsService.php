@@ -43,17 +43,23 @@ class ArtifactsService
     {
         $tag = 'artifacts.'.$slug.'.'.$branch;
 
-        $lastBuildSlug = $this->builds->getLastBuildInfoByBranch($branch, $slug)['slug'];
+        $lastBuild = $this->builds->getLastBuildInfoByBranch($branch, $slug);
 
         if ($this->cache->has($tag)) {
             $response = $this->cache->get($tag);
         } else {
-            $response = $this->client->get('apps/'.$slug.'/builds/'.$lastBuildSlug.'/artifacts')
+            $response = $this->client->get('apps/'.$slug.'/builds/'.$lastBuild['slug'].'/artifacts')
                 ->getBody()->getContents();
             $this->cache->set($tag, $response, 600);
         }
 
-        return json_decode($response)->data;
+        $artifacts = json_decode($response)->data;
+
+        foreach ($artifacts as $key => $item) {
+            $item->build_slug = $lastBuild['slug'];
+        }
+
+        return $artifacts;
     }
 
     /**
