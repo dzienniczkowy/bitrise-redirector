@@ -24,22 +24,22 @@ For more info go to
 
 <ul>
     <li><code>GET
-        <a href="{$this->generateUrl('branch', ['slug' => 'daeff1893f3c8128'])}">/v0.1/apps/{slug}/builds/{branch}</a></code>
+        <a href="{$this->generateUrl('branch', ['slug' => 'f841f20d8f8b1dc8'])}">/v0.1/apps/{slug}/builds/{branch}</a></code>
         – redirect to the latest build on a specific branch</li>
     <li><code>GET 
-        <a href="{$this->generateUrl('artifacts', ['slug' => 'daeff1893f3c8128', 'branch' => 'master'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts</a></code>
+        <a href="{$this->generateUrl('artifacts', ['slug' => 'f841f20d8f8b1dc8', 'branch' => 'master'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts</a></code>
         – json list of build artifacts for the latest build on a specific branch</li>
     <li><code>GET
-        <a href="{$this->generateUrl('artifactFilename', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'filename' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}</a></code>
+        <a href="{$this->generateUrl('artifactFilename', ['slug' => 'f841f20d8f8b1dc8', 'branch' => 'master', 'filename' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}</a></code>
         – redirect to the download link of a specific build artifact</li>
     <li><code>GET
-        <a href="{$this->generateUrl('artifactIndex', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'index' => '0'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{index}</a></code>
+        <a href="{$this->generateUrl('artifactIndex', ['slug' => 'f841f20d8f8b1dc8', 'branch' => 'master', 'index' => '0'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{index}</a></code>
         – redirect to the download link of a specific build artifact (index-based version)</li>
     <li><code>GET
-        <a href="{$this->generateUrl('infoFilename', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'filename' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}/info</a></code>
+        <a href="{$this->generateUrl('infoFilename', ['slug' => 'f841f20d8f8b1dc8', 'branch' => 'master', 'filename' => 'app-debug-bitrise-signed.apk'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}/info</a></code>
         – info of last artifact on specific branch</li>
     <li><code>GET
-        <a href="{$this->generateUrl('infoIndex', ['slug' => 'daeff1893f3c8128', 'branch' => 'master', 'index' => '0'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{index}/info</a></code>
+        <a href="{$this->generateUrl('infoIndex', ['slug' => 'f841f20d8f8b1dc8', 'branch' => 'master', 'index' => '0'])}">/v0.1/apps/{slug}/builds/{branch}/artifacts/{index}/info</a></code>
         – info of last artifact on specific branch (index-based version)</li>
 </ul>
 

@@ -25,23 +25,23 @@ A public instance of bitrise-redirector is running here:
 
 ### API v0.1
 
-Get redirected to the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master)):
+Get redirected to the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/f841f20d8f8b1dc8/builds/master)):
 
  * `GET /v0.1/apps/{slug}/builds/{branch}`
 
-Get json list of build artifacts for the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts)):
+Get json list of build artifacts for the latest build on a specific branch ([example](https://bitrise-redirector.herokuapp.com/v0.1/apps/f841f20d8f8b1dc8/builds/master/artifacts)):
 
  * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts`
 
 Get redirected to the download link of a specific build artifact:
 
- * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}` - [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/app-debug-bitrise-signed.apk)
- * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{index}` - [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/0)
+ * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}` - [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/f841f20d8f8b1dc8/builds/master/artifacts/app-debug-bitrise-signed.apk)
+ * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{index}` - [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/f841f20d8f8b1dc8/builds/master/artifacts/0)
 
 Get info of last artifact on specific branch:
 
- * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}/info` - [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/app-debug-bitrise-signed.apk/info)
- * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{index}/info` [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/daeff1893f3c8128/builds/master/artifacts/0/info)
+ * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}/info` - [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/f841f20d8f8b1dc8/builds/master/artifacts/app-debug-bitrise-signed.apk/info)
+ * `GET /v0.1/apps/{slug}/builds/{branch}/artifacts/{index}/info` [example](https://bitrise-redirector.herokuapp.com/v0.1/apps/f841f20d8f8b1dc8/builds/master/artifacts/0/info)
 
 ## Development
 
