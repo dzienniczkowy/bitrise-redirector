@@ -55,7 +55,7 @@ class ArtifactsService
         } else {
             $response = $this->client->get('apps/'.$slug.'/builds/'.$lastBuild['slug'].'/artifacts')
                 ->getBody()->getContents();
-            $this->cache->set($tag, $response, 600);
+            $this->cache->set($tag, $response, 60);
         }
 
         $artifacts = json_decode($response)->data;

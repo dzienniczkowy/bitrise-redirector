@@ -47,7 +47,7 @@ class BuildsService
             $response = $this->cache->get($tag);
         } else {
             $response = $this->getLastBuildByBranch($slug, $branch)->getBody()->getContents();
-            $this->cache->set($tag, $response, 600);
+            $this->cache->set($tag, $response, 60);
         }
 
         $lastBuild = json_decode($response, true)['data'];
