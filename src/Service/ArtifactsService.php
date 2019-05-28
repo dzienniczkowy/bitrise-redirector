@@ -3,6 +3,11 @@
 namespace Wulkanowy\BitriseRedirector\Service;
 
 use GuzzleHttp\Client;
+use function is_int;
+use function json_decode;
+use Psr\SimpleCache\InvalidArgumentException;
+use RuntimeException;
+use stdClass;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 
 class ArtifactsService
@@ -33,9 +38,9 @@ class ArtifactsService
      * @param string $slug
      * @param string $branch
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @throws RequestFailedException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return array
      */
@@ -65,15 +70,15 @@ class ArtifactsService
     /**
      * @param string    $slug
      * @param string    $branch
-     * @param \stdClass $artifact
+     * @param stdClass $artifact
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @throws RequestFailedException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
-     * @return \stdClass
+     * @return stdClass
      */
-    public function getArtifactInfo(string $slug, string $branch, ?\stdClass $artifact): \stdClass
+    public function getArtifactInfo(string $slug, string $branch, ?stdClass $artifact): stdClass
     {
         $buildInfo = $this->builds->getLastBuildInfoByBranch($branch, $slug);
 
@@ -91,7 +96,7 @@ class ArtifactsService
             $this->cache->set($infoTag, $response, 60);
         }
 
-        $info = \json_decode($response)->data;
+        $info = json_decode($response)->data;
 
         $info->build_number = $buildInfo['build_number'];
         $info->commit_view_url = $buildInfo['commit_view_url'];
@@ -100,16 +105,16 @@ class ArtifactsService
         return $info;
     }
 
-    public function getArtifact(array $artifacts, $key): ?\stdClass
+    public function getArtifact(array $artifacts, $key): ?stdClass
     {
-        if (\is_int($key)) {
+        if (is_int($key)) {
             return $this->getArtifactByIndex($artifacts, $key);
         }
 
         return $this->getArtifactByFilename($artifacts, $key);
     }
 
-    public function getArtifactByFilename(array $artifacts, string $filename): ?\stdClass
+    public function getArtifactByFilename(array $artifacts, string $filename): ?stdClass
     {
         foreach ($artifacts as $key => $item) {
             if ($filename === $item->title) {
@@ -120,7 +125,7 @@ class ArtifactsService
         return null;
     }
 
-    public function getArtifactByIndex(array $artifacts, int $index): ?\stdClass
+    public function getArtifactByIndex(array $artifacts, int $index): ?stdClass
     {
         return $artifacts[$index] ?? null;
     }

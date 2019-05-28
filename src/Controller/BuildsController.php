@@ -2,9 +2,12 @@
 
 namespace Wulkanowy\BitriseRedirector\Controller;
 
+use Psr\SimpleCache\InvalidArgumentException;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Wulkanowy\BitriseRedirector\Service\BuildsService;
+use Wulkanowy\BitriseRedirector\Service\RequestFailedException;
 
 class BuildsController extends AbstractController
 {
@@ -13,9 +16,9 @@ class BuildsController extends AbstractController
      * @param string        $slug
      * @param string        $branch
      *
-     * @throws \RuntimeException
-     * @throws \Wulkanowy\BitriseRedirector\Service\RequestFailedException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws RuntimeException
+     * @throws RequestFailedException
+     * @throws InvalidArgumentException
      *
      * @return RedirectResponse
      */

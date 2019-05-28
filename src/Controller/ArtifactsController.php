@@ -2,6 +2,8 @@
 
 namespace Wulkanowy\BitriseRedirector\Controller;
 
+use Psr\SimpleCache\InvalidArgumentException;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,8 +32,8 @@ class ArtifactsController extends AbstractController
      * @param string $slug
      * @param string $branch
      *
-     * @throws \RuntimeException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws RuntimeException
+     * @throws InvalidArgumentException
      *
      * @return JsonResponse
      */
@@ -49,9 +51,9 @@ class ArtifactsController extends AbstractController
      * @param string $branch
      * @param string $filename
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @throws RequestFailedException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return RedirectResponse
      */
@@ -66,7 +68,7 @@ class ArtifactsController extends AbstractController
      * @param int    $index
      *
      * @throws RequestFailedException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return RedirectResponse
      */
@@ -81,7 +83,7 @@ class ArtifactsController extends AbstractController
      * @param        $key
      *
      * @throws RequestFailedException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return RedirectResponse
      */
@@ -101,8 +103,8 @@ class ArtifactsController extends AbstractController
      *
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws RuntimeException
+     * @throws InvalidArgumentException
      *
      * @return JsonResponse
      */
@@ -116,7 +118,7 @@ class ArtifactsController extends AbstractController
      * @param string $branch
      * @param int    $index
      *
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return JsonResponse
      */
@@ -130,7 +132,7 @@ class ArtifactsController extends AbstractController
      * @param string $branch
      * @param        $key
      *
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return JsonResponse
      */

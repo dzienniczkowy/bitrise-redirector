@@ -2,6 +2,8 @@
 
 namespace Wulkanowy\BitriseRedirector\Service;
 
-class RequestFailedException extends \Exception
+use Exception;
+
+class RequestFailedException extends Exception
 {
 }

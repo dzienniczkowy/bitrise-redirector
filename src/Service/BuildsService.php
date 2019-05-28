@@ -4,6 +4,9 @@ namespace Wulkanowy\BitriseRedirector\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Message\ResponseInterface;
+use Psr\SimpleCache\InvalidArgumentException;
+use RuntimeException;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 
 class BuildsService
@@ -30,9 +33,9 @@ class BuildsService
      * @param string $branch
      * @param string $slug
      *
-     * @throws \RuntimeException
+     * @throws RuntimeException
      * @throws RequestFailedException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return array
      */
@@ -62,9 +65,9 @@ class BuildsService
      *
      * @throws RequestFailedException
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
-    private function getLastBuildByBranch(string $slug, string $branch): \Psr\Http\Message\ResponseInterface
+    private function getLastBuildByBranch(string $slug, string $branch): ResponseInterface
     {
         try {
             return $this->client->get(
