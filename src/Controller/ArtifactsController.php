@@ -150,7 +150,7 @@ class ArtifactsController extends AbstractController
             [
                 'error'                   => null,
                 'build_number'            => $info->build_number,
-                'build_url'               => 'https://app.bitrise.io/build/' . $artifact->build_slug,
+                'build_url'               => 'https://app.bitrise.io/build/'.$artifact->build_slug,
                 'commit_view_url'         => $info->commit_view_url,
                 'expiring_download_url'   => $info->expiring_download_url,
                 'file_size_bytes'         => $info->file_size_bytes,

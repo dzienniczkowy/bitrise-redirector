@@ -3,12 +3,12 @@
 namespace Wulkanowy\BitriseRedirector\Service;
 
 use GuzzleHttp\Client;
-use function is_int;
-use function json_decode;
 use Psr\SimpleCache\InvalidArgumentException;
 use RuntimeException;
 use stdClass;
 use Symfony\Component\Cache\Simple\FilesystemCache;
+use function is_int;
+use function json_decode;
 
 class ArtifactsService
 {
@@ -68,8 +68,8 @@ class ArtifactsService
     }
 
     /**
-     * @param string    $slug
-     * @param string    $branch
+     * @param string   $slug
+     * @param string   $branch
      * @param stdClass $artifact
      *
      * @throws RuntimeException
