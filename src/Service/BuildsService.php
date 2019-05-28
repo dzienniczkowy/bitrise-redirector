@@ -41,7 +41,7 @@ class BuildsService
      */
     public function getLastBuildInfoByBranch(string $branch, string $slug): array
     {
-        $tag = 'builds.'.$slug.'.'.str_replace($branch, '/', '-').'.last';
+        $tag = 'builds.'.$slug.'.'.str_replace('/', '-', $branch).'.last';
 
         if ($this->cache->has($tag)) {
             $response = $this->cache->get($tag);
