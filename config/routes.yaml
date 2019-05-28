@@ -10,23 +10,31 @@ branch:
 artifacts:
     path: /v0.1/apps/{slug}/builds/{branch}/artifacts
     controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::listAction
+    requirements:
+        branch: .+
 
 artifactIndex:
     path: /v0.1/apps/{slug}/builds/{branch}/artifacts/{index}
     controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::artifactIndexAction
     requirements:
         index: \d+
+        branch: .+
 
 artifactFilename:
     path: /v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}
     controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::artifactAction
+    requirements:
+        branch: .+
 
 infoIndex:
     path: /v0.1/apps/{slug}/builds/{branch}/artifacts/{index}/info
     controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::artifactInfoIndexAction
     requirements:
         index: \d+
+        branch: .+
 
 infoFilename:
     path: /v0.1/apps/{slug}/builds/{branch}/artifacts/{filename}/info
     controller: Wulkanowy\BitriseRedirector\Controller\ArtifactsController::artifactInfoAction
+    requirements:
+        branch: .+

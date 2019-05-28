@@ -41,7 +41,7 @@ class ArtifactsService
      */
     public function getArtifactsListByBranch(string $branch, string $slug) : array
     {
-        $tag = 'artifacts.'.$slug.'.'.$branch;
+        $tag = 'artifacts.'.$slug.'.'.str_replace($branch, '/', '-');
 
         $lastBuild = $this->builds->getLastBuildInfoByBranch($branch, $slug);
 
@@ -81,7 +81,7 @@ class ArtifactsService
             throw new RequestFailedException('Artifact not found.', 404);
         }
 
-        $infoTag = 'artifact.'.$branch.'.'.$artifact->title.'.json';
+        $infoTag = 'artifact.'.str_replace($branch, '/', '-').'.'.$artifact->title.'.json';
 
         if ($this->cache->has($infoTag)) {
             $response = $this->cache->get($infoTag);
