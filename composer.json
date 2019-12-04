@@ -11,11 +11,12 @@
     ],
     "require": {
         "php": "^7.1.3",
-        "ext-json": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "doctrine/cache": "^1.7",
         "eightpoints/guzzle-bundle": "^7.3",
         "guzzlehttp/guzzle": "^6.3",
+        "psr/simple-cache": "^1.0",
         "symfony/cache": "^4.0",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",

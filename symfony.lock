@@ -20,6 +20,9 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
+    "php": {
+        "version": "7.3"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -31,6 +34,9 @@
     },
     "psr/log": {
         "version": "1.0.2"
+    },
+    "psr/simple-cache": {
+        "version": "1.0.1"
     },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
